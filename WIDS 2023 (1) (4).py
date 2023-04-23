@@ -78,11 +78,7 @@
 import pandas as pd #used to analyze data
 import numpy as np #used for working with arrays
 import seaborn as sns #helps you explore and understand your data using stattistical graphs, it is built on matplotlib
-import matplotlib #used for creating interactive visualizations 
-from matplotlib import pyplot as plt #API for matplotlib and is used for graphic visualizations
 import plotly as px
-from plotly.subplots import make_subplots
-
 
 # In[7]:
 
@@ -442,7 +438,7 @@ new_df.shape
 # In[132]:
 
 
-get_ipython().system('pip install sweetviz')
+# get_ipython().system('pip install sweetviz')
 
 
 # In[134]:
@@ -533,7 +529,6 @@ print("Shape of the y Test :", y_test.shape)
 
 
 import lightgbm as lgb
-from lightgbm import LGBMRegressor
 
 # # storing training and validation data in LightGBM Datasets.
 # train_data = lgb.Dataset(X_train, label = y_train)
@@ -725,6 +720,7 @@ mask = np.triu(np.ones_like(corr, dtype = bool))
 
 
 # set up matplotlib figure
+import plotly as plt
 f, ax = plt.subplots(figsize =(11,9))
 
 # generate a custom diverging colormap to show different color tones
@@ -771,12 +767,12 @@ print(get_top_correlations(new_df, 50))
 
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
-features = X.columns
+features = new_df.columns
 
 def compute_vif(features):
     
     vif = pd.DataFrame()
-    vif["features"] = X.columns
+    vif["features"] = new_df.columns
     vif["vif_factor"] = [variance_inflation_factor(train_df[features].values, i) for i in range(len(features))]
     return vif.sort_values(by =['vif_factor'])
 
@@ -911,8 +907,6 @@ new_df[['avg_icec-2010', 'type']].info()
 
 
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-
 
 # In[ ]:
 
@@ -968,13 +962,13 @@ combined_df.describe(include = 'all')
 # In[ ]:
 
 
-df_copy.columns.tolist()
+new_df.columns.tolist()
 
 
 # In[ ]:
 
 
-df_copy.shape
+new_df.shape
 
 
 # In[ ]:
@@ -986,25 +980,25 @@ df_copy.shape
 # In[ ]:
 
 
-df_copy.dtypes
+new_df.dtypes
 
 
 # In[ ]:
 
 
 # filling missing values in age column
-df_copy.fillna(method='ffill',inplace=True)
+new_df.fillna(method='ffill',inplace=True)
 
 pd.set_option('display.max_rows', 246)
-df_copy.isnull().sum()
+new_df.isnull().sum()
 
 
 # In[ ]:
 
 
 # Separate train and test data from the combined dataframe
-train_df = df_copy[df_copy['type'] == 0]
-test_df = df_copy[df_copy['type'] == 1]
+train_df = new_df[new_df['type'] == 0]
+test_df = new_df[new_df['type'] == 1]
 
 # Check the shapes of the split dataset
 train_df.shape, test_df.shape
@@ -1155,13 +1149,13 @@ print('RMSE:',np.sqrt(metrics.mean_squared_error(y_test, y_test_pred_norm)))
 
 # setting up k-fold cross validation
 from sklearn.model_selection import StratifiedKFold,cross_val_score
-kfold = StratifiedKFold(n_splits= 10, random_state= 42, shuffle = True)
+kfold = StratifiedKFold(n_splits= 10, random_state=True)
 
 
 # In[ ]:
 
 
-get_ipython().system('pip install optuna')
+# get_ipython().system('pip install optuna')
 
 
 # In[ ]:
