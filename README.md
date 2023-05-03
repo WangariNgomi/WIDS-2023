@@ -1,5 +1,4 @@
-# WIDS-2023
-Climate Change
+# Climate Change
 Accurate long-term forecasts of temperature and precipitation are an essential tool for helping people and communities prepare for and adapt to extreme weather events.
 
 Currently, purely physics-based models dominate short-term weather forecasting. But these models have a limited forecast horizon. The availability of meteorological data offers an opportunity for data scientists to improve sub-seasonal forecasts by blending physics-based forecasts with machine learning.
